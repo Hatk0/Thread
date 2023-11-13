@@ -1,3 +1,11 @@
-import UIKit
+import Foundation
+import PlaygroundSupport
+PlaygroundPage.current.needsIndefiniteExecution = true
 
-var greeting = "Hello, playground"
+class GeneratorThread: Thread {
+    
+}
+
+class WorkerThread: Thread {
+    
+}
