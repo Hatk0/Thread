@@ -26,7 +26,20 @@ class ThreadSafe<T> {
 }
 
 class GeneratorThread: Thread {
+    private let storage: ThreadSafe<Chip>
     
+    init init(storage: ThreadSafe<Chip>) {
+        self.storage = storage
+        super.init()
+    }
+    
+    override func main() {
+        for _ in 1...10 {
+            let chip = Chip.make()
+            storage.push(chip)
+            sleep(2)
+        }
+    }
 }
 
 class WorkerThread: Thread {
