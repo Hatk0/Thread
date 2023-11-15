@@ -78,3 +78,21 @@ class WorkerThread: Thread {
     }
 }
 
+let chipStorage = ThreadSafe<Chip>()
+let semaphore = DispatchSemaphore(value: 0)
+
+let generatorThread = GeneratorThread(storage: chipStorage, semaphore: semaphore)
+let workerThread = WorkerThread(storage: chipStorage, semaphore: semaphore)
+
+generatorThread.start()
+workerThread.start()
+
+while generatorThread.isExecuting {
+    Thread.sleep(forTimeInterval: 0.1)
+}
+
+while workerThread.isExecuting {
+    Thread.sleep(forTimeInterval: 0.1)
+}
+
+print("Все потоки завершили работу.")
